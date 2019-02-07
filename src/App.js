@@ -53,8 +53,7 @@ handleRandom = (id) =>{
     }
     return i;
   });
-  console.log(newList);
-  console.log(allCards);
+  
   this.setState({
     store:{
       lists: newList,
