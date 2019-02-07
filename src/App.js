@@ -33,6 +33,32 @@ class App extends Component {
   })
 };
 
+ newRandomCard = () => {
+  const id = Math.random().toString(36).substring(2, 4)
+    + Math.random().toString(36).substring(2, 4);
+  return {
+    id,
+    title: `Random Card ${id}`,
+    content: 'lorem ipsum',
+  }
+}
+
+handleRandom = (id) =>{
+  const newCard = this.newRandomCard;
+  const newList = this.state.store.map(i =>{
+    if(i.id === id)
+      i.cardIds.push(newCard.id)
+    return i;
+  })
+  this.setState({
+    store:{
+      lists: newList,
+      // allCards: {...this.state.store.allCards, newCard.id}
+    }
+  })
+ 
+};
+
   render() {
     const {store}=this.state
     return (
@@ -48,6 +74,7 @@ class App extends Component {
               header={list.header}
               cards={list.cardIds.map(id => store.allCards[id])}
               handleItemDelete= {this.handleDelete}
+              handleRandom = {this.handleRandom}
             />
           ))}
         </div>
