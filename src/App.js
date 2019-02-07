@@ -44,16 +44,21 @@ class App extends Component {
 }
 
 handleRandom = (id) =>{
-  const newCard = this.newRandomCard;
-  const newList = this.state.store.map(i =>{
-    if(i.id === id)
-      i.cardIds.push(newCard.id)
+  const { lists, allCards} = this.state.store;
+  const newCard = this.newRandomCard();
+  const newList = lists.map(i =>{
+    if(i.id === id){
+      i.cardIds.push(newCard.id);
+      allCards[newCard.id] = newCard;
+    }
     return i;
-  })
+  });
+  console.log(newList);
+  console.log(allCards);
   this.setState({
     store:{
       lists: newList,
-      // allCards: {...this.state.store.allCards, newCard.id}
+      allCards: allCards
     }
   })
  
