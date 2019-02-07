@@ -3,6 +3,9 @@ import List from './List'
 import './App.css';
 import STORE from './STORE'
 
+
+
+
 class App extends Component {
   static defaultProps = {
     store: {
@@ -15,6 +18,14 @@ class App extends Component {
     store: STORE
   }
 
+  omit = (obj, keyToOmit) => {
+    return Object.entries(obj).reduce(
+      (newObj, [key, value]) =>
+          key === keyToOmit ? newObj : {...newObj, [key]: value},
+      {}
+    );
+  }
+
 
   handleDelete = (cardId) => {
     const { lists, allCards} = this.state.store;
@@ -23,12 +34,12 @@ class App extends Component {
     return list;
   });
 
-  delete allCards[cardId];
+  const newCardList = this.omit(this.state.store.allCards, cardId);
 
   this.setState({
     store: {
       lists: newList,
-      allCards
+      allCards: newCardList
     }
   })
 };
